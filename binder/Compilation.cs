@@ -723,6 +723,8 @@ namespace Embeddinator
                     throw new Exception($"Unable to find NDK toolchain for {abi}!");
                 }
                 var systemInclude = NdkUtil.GetNdkPlatformIncludePath(ndkPath, targetArch, XamarinAndroid.ApiLevel, isLLVM);
+                //var newPath = "D:\\dev\\githubMP\\flutter\\embeddinatorfork\\external\\Xamarin.Android\\lib\\xbuild\\Xamarin\\Android\\lib";
+                //var monoDroidPath = Path.Combine(newPath, abi); // XamarinAndroid.LibraryPath, abi);
                 var monoDroidPath = Path.Combine(XamarinAndroid.LibraryPath, abi);
                 var abiDir = Path.Combine(Options.OutputDir, "android", "jni", abi);
                 var outputPath = Path.Combine(abiDir, libName);

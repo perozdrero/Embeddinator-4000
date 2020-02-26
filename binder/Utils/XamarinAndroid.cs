@@ -14,7 +14,7 @@ namespace Embeddinator
     /// </summary>
     static class XamarinAndroid
     {
-        public const string TargetFrameworkVersion = "v8.0";
+        public const string TargetFrameworkVersion = "v9.0";
         public const string MinSdkVersion = "9";
         public const int TargetSdkVersion = 26;
         public const string JavaVersion = "1.8";

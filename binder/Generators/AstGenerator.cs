@@ -88,7 +88,7 @@ namespace Embeddinator.Generators
             {
                 if (!type.IsPublic && (type.IsNested && !type.IsNestedPublic))
                     continue;
-
+                if (type.FullName != "BrainyBackend.AndoirdWrapper") continue;
                 var typeInfo = type.GetTypeInfo();
                 Visit(typeInfo);
             }
@@ -701,6 +701,10 @@ namespace Embeddinator.Generators
                 QualifiedType = VisitType(fieldInfo.FieldType),
                 IsStatic = fieldInfo.IsStatic
             };
+            if (fieldInfo.Name == "asyncDummy")
+            {
+                field.Ignore = true;
+            }
 
             if (field.Type is UnsupportedType)
                 field.Ignore = true;

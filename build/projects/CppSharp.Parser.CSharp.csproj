@@ -17,8 +17,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>../lib/Debug\</OutputPath>
-    <BaseIntermediateOutputPath>../obj/Debug/CppSharp.Parser.CSharp\</BaseIntermediateOutputPath>
+    <OutputPath>..\lib\Debug\</OutputPath>
+    <BaseIntermediateOutputPath>..\obj\Debug\CppSharp.Parser.CSharp\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
     <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -30,8 +30,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>../lib/Release\</OutputPath>
-    <BaseIntermediateOutputPath>../obj/Release/CppSharp.Parser.CSharp\</BaseIntermediateOutputPath>
+    <OutputPath>..\lib\Release\</OutputPath>
+    <BaseIntermediateOutputPath>..\obj\Release\CppSharp.Parser.CSharp\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
     <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -41,18 +41,18 @@
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <None Include="../../external/CppSharp/src/CppParser/Bindings/CSharp/premake5.lua">
+    <Compile Include="..\..\external\CppSharp\src\CppParser\Bindings\CSharp\i686-pc-win32-msvc\CppSharp.CppParser.cs">
+      <Link>i686-pc-win32-msvc\CppSharp.CppParser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\external\CppSharp\src\CppParser\Bindings\CSharp\i686-pc-win32-msvc\Std.cs">
+      <Link>i686-pc-win32-msvc\Std.cs</Link>
+    </Compile>
+    <None Include="..\..\external\CppSharp\src\CppParser\Bindings\CSharp\premake5.lua">
       <Link>premake5.lua</Link>
     </None>
-    <Compile Include="../../external/CppSharp/src/CppParser/Bindings/CSharp/x86_64-apple-darwin12.4.0/CppSharp.CppParser.cs">
-      <Link>x86_64-apple-darwin12.4.0/CppSharp.CppParser.cs</Link>
-    </Compile>
-    <Compile Include="../../external/CppSharp/src/CppParser/Bindings/CSharp/x86_64-apple-darwin12.4.0/Std.cs">
-      <Link>x86_64-apple-darwin12.4.0/Std.cs</Link>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="CppSharp.Runtime.csproj">
+    <ProjectReference Include="..\..\external\CppSharp\src\Runtime\CppSharp.Runtime.csproj">
       <Project>{189FF169-0498-10BC-2DCA-F5401922F0C7}</Project>
       <Name>CppSharp.Runtime</Name>
     </ProjectReference>

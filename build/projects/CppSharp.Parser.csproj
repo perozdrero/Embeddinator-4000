@@ -17,8 +17,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>../lib/Debug\</OutputPath>
-    <BaseIntermediateOutputPath>../obj/Debug/CppSharp.Parser\</BaseIntermediateOutputPath>
+    <OutputPath>..\lib\Debug\</OutputPath>
+    <BaseIntermediateOutputPath>..\obj\Debug\CppSharp.Parser\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
     <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -30,8 +30,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>../lib/Release\</OutputPath>
-    <BaseIntermediateOutputPath>../obj/Release/CppSharp.Parser\</BaseIntermediateOutputPath>
+    <OutputPath>..\lib\Release\</OutputPath>
+    <BaseIntermediateOutputPath>..\obj\Release\CppSharp.Parser\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
     <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -43,19 +43,19 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="../../external/CppSharp/src/Parser/ASTConverter.cs">
+    <Compile Include="..\..\external\CppSharp\src\Parser\ASTConverter.cs">
       <Link>ASTConverter.cs</Link>
     </Compile>
-    <Compile Include="../../external/CppSharp/src/Parser/BuildConfig.cs">
+    <Compile Include="..\..\external\CppSharp\src\Parser\BuildConfig.cs">
       <Link>BuildConfig.cs</Link>
     </Compile>
-    <Compile Include="../../external/CppSharp/src/Parser/Parser.cs">
+    <Compile Include="..\..\external\CppSharp\src\Parser\Parser.cs">
       <Link>Parser.cs</Link>
     </Compile>
-    <Compile Include="../../external/CppSharp/src/Parser/ParserOptions.cs">
+    <Compile Include="..\..\external\CppSharp\src\Parser\ParserOptions.cs">
       <Link>ParserOptions.cs</Link>
     </Compile>
-    <Compile Include="../../external/CppSharp/src/Parser/TargetTriple.cs">
+    <Compile Include="..\..\external\CppSharp\src\Parser\TargetTriple.cs">
       <Link>TargetTriple.cs</Link>
     </Compile>
   </ItemGroup>
@@ -72,7 +72,7 @@
       <Project>{70148081-5C0E-A9D3-457B-3FE431140F40}</Project>
       <Name>CppSharp.Parser.CSharp</Name>
     </ProjectReference>
-    <ProjectReference Include="CppSharp.Runtime.csproj">
+    <ProjectReference Include="..\..\external\CppSharp\src\Runtime\CppSharp.Runtime.csproj">
       <Project>{189FF169-0498-10BC-2DCA-F5401922F0C7}</Project>
       <Name>CppSharp.Runtime</Name>
     </ProjectReference>

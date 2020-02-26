@@ -17,8 +17,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>../lib/Debug\</OutputPath>
-    <BaseIntermediateOutputPath>../obj/Debug/CppSharp\</BaseIntermediateOutputPath>
+    <OutputPath>..\lib\Debug\</OutputPath>
+    <BaseIntermediateOutputPath>..\obj\Debug\CppSharp\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
     <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -30,8 +30,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>../lib/Release\</OutputPath>
-    <BaseIntermediateOutputPath>../obj/Release/CppSharp\</BaseIntermediateOutputPath>
+    <OutputPath>..\lib\Release\</OutputPath>
+    <BaseIntermediateOutputPath>..\obj\Release\CppSharp\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
     <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -42,27 +42,27 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.VisualStudio.Setup.Configuration.Interop">
-      <HintPath>../../external/CppSharp/deps/vs2017/Microsoft.VisualStudio.Setup.Configuration.Interop.dll</HintPath>
+      <HintPath>..\..\external\CppSharp\deps\vs2017\Microsoft.VisualStudio.Setup.Configuration.Interop.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="../../external/CppSharp/src/Core/Compilation.cs">
+    <Compile Include="..\..\external\CppSharp\src\Core\Compilation.cs">
       <Link>Compilation.cs</Link>
     </Compile>
-    <Compile Include="../../external/CppSharp/src/Core/Diagnostics.cs">
+    <Compile Include="..\..\external\CppSharp\src\Core\Diagnostics.cs">
       <Link>Diagnostics.cs</Link>
     </Compile>
-    <Compile Include="../../external/CppSharp/src/Core/Platform.cs">
+    <Compile Include="..\..\external\CppSharp\src\Core\Platform.cs">
       <Link>Platform.cs</Link>
     </Compile>
-    <Compile Include="../../external/CppSharp/src/Core/Toolchains/MSVCToolchain.cs">
-      <Link>Toolchains/MSVCToolchain.cs</Link>
+    <Compile Include="..\..\external\CppSharp\src\Core\Toolchains\MSVCToolchain.cs">
+      <Link>Toolchains\MSVCToolchain.cs</Link>
     </Compile>
-    <Compile Include="../../external/CppSharp/src/Core/Toolchains/ManagedToolchain.cs">
-      <Link>Toolchains/ManagedToolchain.cs</Link>
+    <Compile Include="..\..\external\CppSharp\src\Core\Toolchains\ManagedToolchain.cs">
+      <Link>Toolchains\ManagedToolchain.cs</Link>
     </Compile>
-    <Compile Include="../../external/CppSharp/src/Core/Toolchains/XcodeToolchain.cs">
-      <Link>Toolchains/XcodeToolchain.cs</Link>
+    <Compile Include="..\..\external\CppSharp\src\Core\Toolchains\XcodeToolchain.cs">
+      <Link>Toolchains\XcodeToolchain.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text;
 using Microsoft.Build.Construction;
 using Microsoft.Build.Evaluation;
 using Mono.Cecil;
@@ -77,6 +78,8 @@ namespace Embeddinator
             var packageName = Generators.JavaGenerator.GetNativeLibPackageName(mainAssembly);
             var project = CreateProject();
             var target = project.AddTarget("Build");
+            var group = project.AddItemGroup();
+            group.AddItem("LinkDescription", "LinkDescription.xml");
 
             //ResolveAssemblies Task
             ResolveAssemblies(target, assemblies);
@@ -124,6 +127,33 @@ namespace Embeddinator
             //NOTE: might avoid the temp file later
             var projectFile = Path.Combine(outputDirectory, "Package.proj");
             project.Save(projectFile);
+            var xmlFile = Path.Combine(outputDirectory, "LinkDescription.xml");
+            var xml = String.Join(
+    Environment.NewLine,
+    "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>",
+    "<linker>",
+    "    <assembly fullname=\"mscorlib\">",
+    "        <type fullname=\"System.String\">",
+    "            <method name=\"Compare\"></method>",
+    "            <method name=\"CompareTo\"></method>",
+    "            <method name=\"ToUpper\"></method>",
+    "            <method name=\"ToLower\"></method>",
+    "        </type>",
+    "        <type fullname=\"System.DateTime\" preserve=\"methods\" />",
+    "        <type fullname=\"System.Math\">",
+    "            <method name=\"Abs\"></method>",
+    "            <method name=\"Max\"></method>",
+    "            <method name=\"Min\"></method>",
+    "            <method name=\"Round\"></method>",
+    "        </type>",
+    "    </assembly>",
+    "    <assembly fullname=\"System.Core\">",
+    "        <type fullname=\"System.Linq.Expressions.Expression`1\"></type>",
+    "        <type fullname=\"System.Linq.Queryable\"></type>",
+    "    </assembly>",
+    "</linker>",
+    "");
+            File.WriteAllText(xmlFile, xml, Encoding.UTF8);
             return projectFile;
         }
 
@@ -281,53 +311,58 @@ $@"<?xml version=""1.0"" encoding=""utf-8""?>
             foreach (var assemblyFile in Directory.GetFiles(assembliesDir, "*.dll"))
             {
                 var assemblyModified = false;
-                var assembly = AssemblyDefinition.ReadAssembly(assemblyFile, new ReaderParameters { AssemblyResolver = resolver });
-
-                foreach (var module in assembly.Modules)
+                var rp = new ReaderParameters { AssemblyResolver = resolver, ReadWrite = true };
+                rp.ReadingMode = ReadingMode.Immediate;
+                rp.ReadWrite = true;
+                rp.InMemory = true;
+                using (var assembly = AssemblyDefinition.ReadAssembly(assemblyFile, rp))
                 {
-                    //NOTE: ToArray() so foreach does not get InvalidOperationException
-                    foreach (EmbeddedResource resource in module.Resources.ToArray())
+                    foreach (var module in assembly.Modules)
                     {
-                        if (resource.Name == "__AndroidNativeLibraries__.zip")
+                        //NOTE: ToArray() so foreach does not get InvalidOperationException
+                        foreach (EmbeddedResource resource in module.Resources.ToArray())
                         {
-                            var data = resource.GetResourceData();
-                            using (var resourceStream = new MemoryStream(data))
+                            if (resource.Name == "__AndroidNativeLibraries__.zip")
                             {
-                                using (var zip = new ZipArchive(resourceStream))
+                                var data = resource.GetResourceData();
+                                using (var resourceStream = new MemoryStream(data))
                                 {
-                                    foreach (var entry in zip.Entries)
+                                    using (var zip = new ZipArchive(resourceStream))
                                     {
-                                        //Skip directories
-                                        if (string.IsNullOrEmpty(entry.Name))
-                                            continue;
-
-                                        var fileName = entry.Name;
-                                        var abi = Path.GetFileName(Path.GetDirectoryName(entry.FullName));
-
-                                        using (var zipStream = entry.Open())
-                                        using (var fileStream = File.Create(Path.Combine(jniDir, abi, fileName)))
+                                        foreach (var entry in zip.Entries)
                                         {
-                                            zipStream.CopyTo(fileStream);
+                                            //Skip directories
+                                            if (string.IsNullOrEmpty(entry.Name))
+                                                continue;
+
+                                            var fileName = entry.Name;
+                                            var abi = Path.GetFileName(Path.GetDirectoryName(entry.FullName));
+
+                                            using (var zipStream = entry.Open())
+                                            using (var fileStream = File.Create(Path.Combine(jniDir, abi, fileName)))
+                                            {
+                                                zipStream.CopyTo(fileStream);
+                                            }
                                         }
                                     }
                                 }
-                            }
 
-                            module.Resources.Remove(resource);
-                            assemblyModified = true;
-                        }
-                        else if (resource.Name == "__AndroidLibraryProjects__.zip")
-                        {
-                            module.Resources.Remove(resource);
-                            assemblyModified = true;
+                                module.Resources.Remove(resource);
+                                assemblyModified = true;
+                            }
+                            else if (resource.Name == "__AndroidLibraryProjects__.zip")
+                            {
+                                module.Resources.Remove(resource);
+                                assemblyModified = true;
+                            }
                         }
                     }
-                }
 
-                //Only write the assembly if we removed a resource
-                if (assemblyModified)
-                {
-                    assembly.Write(assemblyFile);
+                    //Only write the assembly if we removed a resource
+                    if (assemblyModified)
+                    {
+                        assembly.Write(assemblyFile);
+                    }
                 }
             }
         }
